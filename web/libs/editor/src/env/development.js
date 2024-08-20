@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import External from "../core/External";
 import Messages from "../utils/messages";
+import "../../../../apps/labelstudio/src/themes/default/colors.scss";
 
 /**
  * Text
@@ -40,6 +41,7 @@ import { ImagePolygons } from "../examples/image_polygons";
 import { ImageSegmentation } from "../examples/image_segmentation";
 import { ImageTools } from "../examples/image_tools";
 import { ImageMagicWand } from "../examples/image_magic_wand";
+import { ImageListDescription } from "../examples/image_list_products_data";
 
 /**
  * HTML
@@ -70,19 +72,22 @@ import { Buckets } from "../examples/ranker_buckets";
 import { TimeSeries } from "../examples/timeseries";
 import { TimeSeriesSingle } from "../examples/timeseries_single";
 import { ClassificationMixed } from "../examples/classification_mixed";
+import { ImageListLarge } from "../examples/image_list_large";
+import { ImageListPerregion } from "../examples/image_list_perregion";
+import { ImageListProductsData } from "../examples/image_list_products_data";
 
 /**
  * Custom Data
  */
 // import { AllTypes } from "../examples/all_types";
 
-const data = ClassificationMixed;
+const data = ImageListProductsData;
 
 function getData(task) {
   if (task && task.data) {
     return {
       ...task,
-      data: JSON.stringify(task.data),
+      data: JSON.stringify(task.data)
     };
   }
 
@@ -113,7 +118,7 @@ async function getExample() {
   const task = {
     annotations,
     predictions,
-    data: JSON.stringify(datatype.tasks[0].data),
+    data: JSON.stringify(datatype.tasks[0].data)
   };
 
   return { config, task, annotations, predictions };
@@ -146,27 +151,41 @@ function configureApplication(params) {
   const options = {
     settings: params.settings || {},
     messages: { ...Messages, ...params.messages },
-    onSubmitAnnotation: params.onSubmitAnnotation ? params.onSubmitAnnotation : External.onSubmitAnnotation,
-    onUpdateAnnotation: params.onUpdateAnnotation ? params.onUpdateAnnotation : External.onUpdateAnnotation,
-    onDeleteAnnotation: params.onDeleteAnnotation ? params.onDeleteAnnotation : External.onDeleteAnnotation,
+    onSubmitAnnotation: params.onSubmitAnnotation
+      ? params.onSubmitAnnotation
+      : External.onSubmitAnnotation,
+    onUpdateAnnotation: params.onUpdateAnnotation
+      ? params.onUpdateAnnotation
+      : External.onUpdateAnnotation,
+    onDeleteAnnotation: params.onDeleteAnnotation
+      ? params.onDeleteAnnotation
+      : External.onDeleteAnnotation,
     onSkipTask: params.onSkipTask ? params.onSkipTask : External.onSkipTask,
-    onUnskipTask: params.onUnskipTask ? params.onUnskipTask : External.onUnskipTask,
+    onUnskipTask: params.onUnskipTask
+      ? params.onUnskipTask
+      : External.onUnskipTask,
     onPresignUrlForProject: params.onPresignUrlForProject,
     onSubmitDraft: params.onSubmitDraft,
     onTaskLoad: params.onTaskLoad ? params.onTaskLoad : External.onTaskLoad,
-    onLabelStudioLoad: params.onLabelStudioLoad ? params.onLabelStudioLoad : External.onLabelStudioLoad,
+    onLabelStudioLoad: params.onLabelStudioLoad
+      ? params.onLabelStudioLoad
+      : External.onLabelStudioLoad,
     onEntityCreate: params.onEntityCreate || External.onEntityCreate,
     onEntityDelete: params.onEntityDelete || External.onEntityDelete,
     onGroundTruth: params.onGroundTruth || External.onGroundTruth,
-    onSelectAnnotation: params.onSelectAnnotation || External.onSelectAnnotation,
-    onAcceptAnnotation: params.onAcceptAnnotation || External.onAcceptAnnotation,
-    onRejectAnnotation: params.onRejectAnnotation || External.onRejectAnnotation,
-    onStorageInitialized: params.onStorageInitialized || External.onStorageInitialized,
+    onSelectAnnotation:
+      params.onSelectAnnotation || External.onSelectAnnotation,
+    onAcceptAnnotation:
+      params.onAcceptAnnotation || External.onAcceptAnnotation,
+    onRejectAnnotation:
+      params.onRejectAnnotation || External.onRejectAnnotation,
+    onStorageInitialized:
+      params.onStorageInitialized || External.onStorageInitialized,
     onNextTask: params.onNextTask || External.onNextTask,
     onPrevTask: params.onPrevTask || External.onPrevTask,
     // other settings aka flags
     forceAutoAnnotation: params.forceAutoAnnotation ?? false,
-    forceAutoAcceptSuggestions: params.forceAutoAcceptSuggestions ?? false,
+    forceAutoAcceptSuggestions: params.forceAutoAcceptSuggestions ?? false
   };
 
   return options;

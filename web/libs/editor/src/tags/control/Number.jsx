@@ -52,25 +52,24 @@ const TagAttrs = types.model({
   defaultvalue: types.maybeNull(types.string),
   slider: types.optional(types.boolean, false),
 
-  hotkey: types.maybeNull(types.string),
+  hotkey: types.maybeNull(types.string)
 });
 
 const Model = types
   .model({
     pid: types.optional(types.string, guidGenerator),
     type: "number",
-    number: types.maybeNull(types.number),
+    number: types.maybeNull(types.number)
   })
-  .views((self) => ({
+  .views(self => ({
     selectedValues() {
       return self.number;
     },
-
     get holdsState() {
       return isDefined(self.number);
-    },
+    }
   }))
-  .actions((self) => {
+  .actions(self => {
     const Super = { validateValue: self.validateValue };
 
     return {
@@ -92,11 +91,17 @@ const Model = types
           const delta = (value - basis) % step;
 
           if (delta !== 0) {
-            errors.push(`The two nearest valid values are ${value - delta} and ${value - delta + step}`);
+            errors.push(
+              `The two nearest valid values are ${value - delta} and ${value -
+                delta +
+                step}`
+            );
           }
         }
         if (errors.length) {
-          InfoModal.warning(`Number "${value}" is not valid: ${errors.join(", ")}.`);
+          InfoModal.warning(
+            `Number "${value}" is not valid: ${errors.join(", ")}.`
+          );
           return false;
         }
         return true;
@@ -119,15 +124,15 @@ const Model = types
 
           for (const reg of object?.allRegs ?? []) {
             // add result with default value to every region of related object without number yet
-            if (!reg.results.some((r) => r.from_name === self)) {
+            if (!reg.results.some(r => r.from_name === self)) {
               reg.results.push({
                 area: reg,
                 from_name: self,
                 to_name: object,
                 type: self.resultType,
                 value: {
-                  [self.valueType]: +self.defaultvalue,
-                },
+                  [self.valueType]: +self.defaultvalue
+                }
               });
             }
           }
@@ -160,7 +165,9 @@ const Model = types
       },
 
       requiredModal() {
-        InfoModal.warning(self.requiredmessage || `Number "${self.name}" is required.`);
+        InfoModal.warning(
+          self.requiredmessage || `Number "${self.name}" is required.`
+        );
       },
 
       increaseValue() {
@@ -177,7 +184,7 @@ const Model = types
 
       onHotKey() {
         return self.increaseValue();
-      },
+      }
     };
   });
 
@@ -191,12 +198,14 @@ const NumberModel = types.compose(
   ...(isFF(FF_LSDV_4583) ? [PerItemMixin] : []),
   AnnotationMixin,
   TagAttrs,
-  Model,
+  Model
 );
 
 const HtxNumber = inject("store")(
   observer(({ item, store }) => {
-    const visibleStyle = item.perRegionVisible() ? { display: "flex", alignItems: "center" } : { display: "none" };
+    const visibleStyle = item.perRegionVisible()
+      ? { display: "flex", alignItems: "center" }
+      : { display: "none" };
     const sliderStyle = item.slider ? { padding: "9px 0px", border: 0 } : {};
     const disabled = item.isReadOnly();
 
@@ -213,13 +222,17 @@ const HtxNumber = inject("store")(
           max={isDefined(item.max) ? Number(item.max) : undefined}
           onChange={disabled ? undefined : item.onChange}
         />
-        {item.slider && <output style={{ marginLeft: "5px" }}>{item.number ?? item.defaultvalue ?? ""}</output>}
-        {store.settings.enableTooltips && store.settings.enableHotkeys && item.hotkey && (
-          <sup style={{ fontSize: "9px" }}>[{item.hotkey}]</sup>
+        {item.slider && (
+          <output style={{ marginLeft: "5px" }}>
+            {item.number ?? item.defaultvalue ?? ""}
+          </output>
         )}
+        {store.settings.enableTooltips &&
+          store.settings.enableHotkeys &&
+          item.hotkey && <sup style={{ fontSize: "9px" }}>[{item.hotkey}]</sup>}
       </div>
     );
-  }),
+  })
 );
 
 Registry.addTag("number", NumberModel, HtxNumber);

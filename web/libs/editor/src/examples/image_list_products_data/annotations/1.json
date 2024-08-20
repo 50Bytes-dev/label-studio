@@ -1,0 +1,88 @@
+{
+  "annotations": [
+    {
+      "id": "1001",
+      "lead_time": 15.053,
+      "result": [
+        {
+          "id": "L7qbntuT_B",
+          "value": {
+            "productsdata": [
+              {
+                "params": [
+                  {
+                    "name": "наименование",
+                    "values": [
+                      "шорты"
+                    ]
+                  },
+                  {
+                    "name": "особенности",
+                    "values": [
+                      "оверсайз"
+                    ]
+                  },
+                  {
+                    "name": "материал",
+                    "values": [
+                      "ниага"
+                    ]
+                  }
+                ],
+                "retail_prices": [
+                  {
+                    "value": 300,
+                    "options": [
+                      "38",
+                      "40",
+                      "42",
+                      "44",
+                      "46",
+                      "48"
+                    ]
+                  }
+                ],
+                "wholesale_prices": [
+                  {
+                    "value": 300,
+                    "options": [
+                      {
+                        "name": "38",
+                        "count": 1
+                      },
+                      {
+                        "name": "40",
+                        "count": 1
+                      },
+                      {
+                        "name": "42",
+                        "count": 1
+                      },
+                      {
+                        "name": "44",
+                        "count": 1
+                      },
+                      {
+                        "name": "46",
+                        "count": 1
+                      },
+                      {
+                        "name": "48",
+                        "count": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "type": "productsdata",
+          "origin": "manual",
+          "to_name": "text",
+          "from_name": "productsData"
+        }
+      ]
+    }
+  ],
+  "task_path": "../tasks.json"
+}

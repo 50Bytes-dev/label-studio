@@ -1,0 +1,9 @@
+<View>
+  <Image name="images" valueList="$images"></Image>
+  <Text name="text" value="$description"/>
+  <ProductsData
+    name="productsData"
+    toName="text"
+    options="наименование,описание,пол,материал,особенности,цвет,сезон,вес,упаковка,длина изделия,объём,совместная покупка,категория"
+  />
+</View>

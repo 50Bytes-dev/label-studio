@@ -8,13 +8,12 @@ select = [
     # Pycodestyle
     "E",
     # isort
-    "I001"
+    "I001",
 ]
 ignore = [
     "E501",
     "E402", # ignores: Module level import not at top of file.  (isort takes care of this and if not, there is usually a good reason)
 ]
-
 
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
@@ -106,9 +105,7 @@ target-version = ['py38']
 name = "label-studio"
 version = "1.13.2.dev0"
 description = "Label Studio annotation tool"
-authors = [
-    "Heartex <hello@heartex.ai>",
-]
+authors = ["Heartex <hello@heartex.ai>"]
 readme = "README.md"
 license = "Apache-2.0"
 classifiers = [
@@ -117,9 +114,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 homepage = "https://github.com/heartexlabs/label-studio"
-packages = [
-    { include = "label_studio" },
-]
+packages = [{ include = "label_studio" }]
 include = [
     "web/dist/libs/datamanager/**/*",
     "web/dist/libs/editor/**/*",
@@ -134,16 +129,14 @@ include = [
     "label_studio/io_storages/**/*.yml",
 ]
 
-exclude = [
-    "label_studio/frontend",
-]
+exclude = ["label_studio/frontend"]
 
 
 [tool.poetry.scripts]
 label-studio = "label_studio.server:main"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4"
+python = ">=3.9,<4"
 wheel = "<=0.40.0,>=0.38.1"
 appdirs = ">=1.4.3"
 attr = "0.3.1"
@@ -196,13 +189,13 @@ launchdarkly-server-sdk = "8.2.1"
 python-json-logger = "2.0.4"
 google-cloud-storage = "^2.13.0"
 google-cloud-logging = "^3.10.0"
-mysqlclient = {version = "*", optional = true}
+mysqlclient = { version = "*", optional = true }
 django-csp = "3.7"
 openai = "^1.10.0"
 
 # Humansignal repo dependencies
 
-label-studio-sdk = {url = "https://github.com/HumanSignal/label-studio-sdk/archive/ef479eb8d206ab3008d74e9efa7a6dd15b882070.zip"}
+label-studio-sdk = { url = "https://github.com/HumanSignal/label-studio-sdk/archive/ef479eb8d206ab3008d74e9efa7a6dd15b882070.zip" }
 
 [tool.poetry.group.test.dependencies]
 pytest = "7.2.2"

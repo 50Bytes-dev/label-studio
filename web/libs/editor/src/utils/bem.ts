@@ -56,10 +56,10 @@ type WrappedComponentProps<CN extends FC<any>, TN extends TagNames> = {
   style?: CSSProperties;
   component?: FC | CNTagName;
 } & ({
-    [key in keyof TagAttrs<TN>]: TagAttrs<TN>[key];
-  } & {
-    [key in keyof Parameters<CN>[0]]: Parameters<CN>[0][key];
-  });
+  [key in keyof TagAttrs<TN>]: TagAttrs<TN>[key];
+} & {
+  [key in keyof Parameters<CN>[0]]: Parameters<CN>[0][key];
+});
 
 const CSS_PREFIX = process.env.CSS_PREFIX ?? "dm-";
 

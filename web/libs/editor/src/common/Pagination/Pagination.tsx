@@ -173,7 +173,7 @@ const NavigationButton: FC<NavigationButtonProps> = ({ mod, disabled, hotkey, on
 
   buttonMod.disabled = disabled === true;
 
-  useHotkey(hotkey, actionHandler);
+  useHotkey(hotkey as any, actionHandler);
 
   return hotkey ? (
     <Hotkey.Tooltip name={hotkey}>

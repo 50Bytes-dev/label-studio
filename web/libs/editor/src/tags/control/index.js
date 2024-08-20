@@ -7,6 +7,7 @@ import { RatingModel } from "./Rating";
 import { ShortcutModel } from "./Shortcut";
 import { TaxonomyModel } from "./Taxonomy/Taxonomy";
 import { TextAreaModel } from "./TextArea/TextArea";
+import { ProductsDataModel } from "./ProductsData";
 
 import { HyperTextLabelsModel } from "./HyperTextLabels";
 import { LabelsModel } from "./Labels/Labels";
@@ -39,6 +40,7 @@ export {
   ShortcutModel,
   TaxonomyModel,
   TextAreaModel,
+  ProductsDataModel,
   HyperTextLabelsModel,
   LabelsModel,
   ParagraphLabelsModel,
@@ -56,5 +58,5 @@ export {
   RectangleLabelsModel,
   RectangleModel,
   RelationsModel,
-  RelationModel,
+  RelationModel
 };
