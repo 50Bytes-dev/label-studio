@@ -105,8 +105,6 @@ const HtxProductsData = inject("store")(
   observer(({ item, store }) => {
     return (
       <div style={{ ...colStyle, gap: "30px" }}>
-        <p>{JSON.stringify(item.products)}</p>
-
         {item.products.map((product, index) => (
           <div key={index}>
             <Divider style={{ marginBottom: "60px" }} />
