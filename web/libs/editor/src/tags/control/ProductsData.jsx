@@ -83,20 +83,6 @@ const ProductsDataModel = types.compose(
   Model
 );
 
-//   "наименование"
-//   "описание"
-//   "пол"
-//   "материал"
-//   "особенности"
-//   "цвет"
-//   "сезон"
-//   "вес"
-//   "упаковка"
-//   "длина изделия"
-//   "объём"
-//   "совместная покупка"
-//   "категория"
-
 const colStyle = { display: "flex", flexDirection: "column", gap: "8px" };
 
 const rowStyle = { display: "flex", alignItems: "start", flexWrap: "wrap" };
@@ -115,7 +101,7 @@ const HtxProductsData = inject("store")(
                   <select
                     style={{
                       marginBottom: "8px",
-                      height: "28px",
+                      height: "42px",
                       fontWeight: 900
                     }}
                     value={param.name}
@@ -278,7 +264,7 @@ const HtxProductsData = inject("store")(
                           }}
                         />
                         <input
-                          style={{ width: "46px" }}
+                          style={{ width: "80px" }}
                           type={"number"}
                           value={opt.count}
                           onChange={e => {
