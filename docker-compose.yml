@@ -41,6 +41,7 @@ services:
       - POSTGRE_HOST=db
       - LABEL_STUDIO_HOST=${LABEL_STUDIO_HOST:-}
       - ALLOWED_HOSTS=*
+      - CSRF_TRUSTED_ORIGINS=localhost
       - JSON_LOG=1
     #      - LOG_LEVEL=DEBUG
     volumes:
