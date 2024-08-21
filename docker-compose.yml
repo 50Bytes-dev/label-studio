@@ -18,8 +18,8 @@ services:
     volumes:
       - ./mydata:/label-studio/data:rw
       - ./deploy/nginx/certs:/certs:ro
-    #   Optional: Override nginx default conf
-    #      - ./deploy/my.conf:/etc/nginx/nginx.conf
+      #   Optional: Override nginx default conf
+      - ./deploy/default.conf:/etc/nginx/nginx.conf
     command: nginx
 
   app:
