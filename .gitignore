@@ -58,6 +58,7 @@ label_studio/core/settings/local.py
 deploy/nginx/certs/*
 !deploy/nginx/certs/.placeholder
 mydata/
+myfiles/
 deploy/pgsql/certs/*
 !deploy/pgsql/certs/.placeholder
 

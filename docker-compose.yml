@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   nginx:
     build: .
@@ -40,12 +39,15 @@ services:
       - POSTGRE_PORT=5432
       - POSTGRE_HOST=db
       - LABEL_STUDIO_HOST=${LABEL_STUDIO_HOST:-}
+      - LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
+      - LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home
       - ALLOWED_HOSTS=*
       - CSRF_TRUSTED_ORIGINS=http://localhost:8888
       - JSON_LOG=1
     #      - LOG_LEVEL=DEBUG
     volumes:
       - ./mydata:/label-studio/data:rw
+      - ./myfiles:/home:rw
     command: label-studio-uwsgi
 
   db:
