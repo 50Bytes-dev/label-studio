@@ -13,7 +13,8 @@ import { Divider } from "antd";
 
 const TagAttrs = types.model({
   toname: types.maybeNull(types.string),
-  options: types.string
+  options: types.string,
+  categoriesjson: types.string
 });
 
 const Model = types
@@ -31,6 +32,9 @@ const Model = types
     },
     get paramOptions() {
       return self.options.split(",");
+    },
+    get categories() {
+      return JSON.parse(self.categoriesjson);
     }
   }))
   .actions(self => ({
@@ -87,6 +91,42 @@ const colStyle = { display: "flex", flexDirection: "column", gap: "8px" };
 
 const rowStyle = { display: "flex", alignItems: "start", flexWrap: "wrap" };
 
+const cateoriesSelect = (categories, values, index, onChange) => {
+  let items = { ...categories };
+
+  if (index !== 0) {
+    for (let i = 0; i < index; i++) {
+      const key = values[i];
+      if (!key) break;
+      items = items[key];
+    }
+  }
+
+  if (items === undefined) {
+    items = [];
+  } else if (!Array.isArray(items)) {
+    items = Object.keys(items);
+  }
+
+  if (items.length === 0) return <span>НЕТ ПОДКАТЕГОРИЙ</span>;
+
+  if (!values[index]) onChange(items[0]);
+
+  return (
+    <select
+      value={values[index]}
+      style={{ marginBottom: "8px", height: "42px" }}
+      onChange={e => onChange(e.target.value)}
+    >
+      {items.map(cat => (
+        <option key={cat} value={cat}>
+          {cat}
+        </option>
+      ))}
+    </select>
+  );
+};
+
 const HtxProductsData = inject("store")(
   observer(({ item, store }) => {
     return (
@@ -126,15 +166,27 @@ const HtxProductsData = inject("store")(
                   <div style={{ ...rowStyle, gap: "8px" }}>
                     {param.values.map((val, index) => (
                       <div key={index} style={rowStyle}>
-                        <textarea
-                          rows={1}
-                          key={index}
-                          value={val}
-                          onChange={e => {
-                            param.values[index] = e.target.value;
-                            item.update();
-                          }}
-                        />
+                        {param.name === "категория" ? (
+                          cateoriesSelect(
+                            item.categories,
+                            param.values,
+                            index,
+                            value => {
+                              param.values[index] = value;
+                              item.update();
+                            }
+                          )
+                        ) : (
+                          <textarea
+                            rows={param.name === "описание" ? 4 : 1}
+                            key={index}
+                            value={val}
+                            onChange={e => {
+                              param.values[index] = e.target.value;
+                              item.update();
+                            }}
+                          />
+                        )}
                         <button
                           tabIndex={-1}
                           style={{ backgroundColor: "lightcoral" }}
