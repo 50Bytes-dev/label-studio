@@ -1,5 +1,5 @@
 <View>
-  <Image name="images" valueList="$images"></Image>
+  <Images name="images" value="$images"></Images>
   <Text name="text" value="$text"/>
   <ProductsData
     name="productsData"

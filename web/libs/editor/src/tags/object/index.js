@@ -21,5 +21,5 @@ export {
   VideoModel,
   TableModel,
   PagedViewModel,
-  ListModel,
+  ListModel
 };

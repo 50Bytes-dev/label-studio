@@ -54,41 +54,49 @@ const Model = types
     type: "list",
     value: types.maybeNull(types.string),
     _value: types.frozen([]),
-    title: types.optional(types.string, ""),
+    title: types.optional(types.string, "")
   })
-  .views((self) => ({
+  .views(self => ({
     get ranker() {
-      return self.annotation.toNames.get(self.name)?.filter((t) => t.type === "ranker");
+      return self.annotation.toNames
+        .get(self.name)
+        ?.filter(t => t.type === "ranker");
     },
     // index of all items from _value
     get items() {
-      return Object.fromEntries(self._value.map((item) => [item.id, item]));
-    },
+      return Object.fromEntries(self._value.map(item => [item.id, item]));
+    }
   }))
-  .views((self) => ({
+  .views(self => ({
     get dataSource() {
       return {
         items: self.items,
         columns: [{ id: self.name, title: self.title }],
-        itemIds: { [self.name]: Object.keys(self.items) },
+        itemIds: { [self.name]: Object.keys(self.items) }
       };
     },
     get result() {
-      return self.annotation?.results.find((r) => r.from_name === self);
-    },
+      return self.annotation?.results.find(r => r.from_name === self);
+    }
   }))
-  .actions((self) => ({
+  .actions(self => ({
     updateValue(store) {
       const value = parseValue(self.value, store.task.dataObj);
 
       if (!Array.isArray(value)) return;
 
       // ids should be strings
-      self._value = value.map((item) => ({ ...item, id: String(item.id) }));
-    },
+      self._value = value.map(item => ({ ...item, id: String(item.id) }));
+    }
   }));
 
-const ListModel = types.compose("ListModel", Base, ProcessAttrsMixin, AnnotationMixin, Model);
+const ListModel = types.compose(
+  "ListModel",
+  Base,
+  ProcessAttrsMixin,
+  AnnotationMixin,
+  Model
+);
 
 const HtxList = inject("store")(
   observer(({ item }) => {
@@ -103,7 +111,7 @@ const HtxList = inject("store")(
         <Ranker inputData={data} readonly />
       </React.StrictMode>
     );
-  }),
+  })
 );
 
 Registry.addTag("list", ListModel, HtxList);
