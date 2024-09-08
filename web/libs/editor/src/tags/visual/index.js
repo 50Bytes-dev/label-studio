@@ -5,6 +5,7 @@ import { ViewModel } from "./View";
 import { StyleModel } from "./Style";
 import { FilterModel } from "./Filter";
 import { ImagesModel } from "../visual/Images";
+import { StickyTextModel } from "./StickyText";
 
 export {
   CollapseModel,
@@ -13,5 +14,6 @@ export {
   ViewModel,
   StyleModel,
   FilterModel,
-  ImagesModel
+  ImagesModel,
+  StickyTextModel
 };

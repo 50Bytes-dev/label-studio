@@ -1,6 +1,7 @@
 <View>
   <Images value="$images"></Images>
   <Text name="text" value="$text"/>
+  <StickyText value="$text"/>
   <ProductsData
     name="productsData"
     toName="text"

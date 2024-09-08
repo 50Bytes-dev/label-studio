@@ -76,6 +76,7 @@ const Model = types.model({
     "audio",
     "image",
     "images",
+    "stickytext",
     "hypertext",
     "richtext",
     "timeseries",

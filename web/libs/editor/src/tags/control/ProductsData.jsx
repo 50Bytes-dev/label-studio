@@ -72,8 +72,38 @@ const Model = types
       ];
     },
 
+    copyProduct() {
+      if (self.products.length === 0) return;
+      const copy = JSON.parse(
+        JSON.stringify(self.products[self.products.length - 1])
+      );
+      self.products = [...self.products, copy];
+    },
+
+    deleteProduct(index) {
+      self.products = self.products.filter((_, i) => i !== index);
+    },
+
     beforeSend() {
       self.result.setValue(self.products);
+    },
+
+    convertToWholesale(e, product) {
+      e.preventDefault();
+      product.wholesale_prices = product.retail_prices.map(obj => ({
+        value: obj.value,
+        options: obj.options.map(name => ({ name: name, count: 1 }))
+      }));
+      self.update();
+    },
+
+    convertToRetail(e, product) {
+      e.preventDefault();
+      product.retail_prices = product.wholesale_prices.map(obj => ({
+        value: obj.value,
+        options: obj.options.map(opt => opt.name)
+      }));
+      self.update();
     }
   }));
 
@@ -218,7 +248,13 @@ const HtxProductsData = inject("store")(
               </button>
             </ul>
 
-            <h4>Розничные цены:</h4>
+            <div style={{ display: "flex", gap: "8px", marginBottom: "4px" }}>
+              <div>Розничные цены:</div>
+              <a href="#" onClick={e => item.convertToWholesale(e, product)}>
+                Конвертировать в оптовые
+              </a>
+            </div>
+
             <ul>
               {product.retail_prices.map((obj, index) => (
                 <li key={index} style={{ marginBottom: "28px" }}>
@@ -282,7 +318,13 @@ const HtxProductsData = inject("store")(
               </button>
             </ul>
 
-            <h4>Оптовые цены:</h4>
+            <div style={{ display: "flex", gap: "8px", marginBottom: "4px" }}>
+              <div>Оптовые цены:</div>
+              <a href="#" onClick={e => item.convertToRetail(e, product)}>
+                Конвертировать в розничные
+              </a>
+            </div>
+
             <ul>
               {product.wholesale_prices.map((obj, index) => (
                 <li key={index} style={{ marginBottom: "28px" }}>
@@ -357,6 +399,13 @@ const HtxProductsData = inject("store")(
                 Добавить оптовую цену
               </button>
             </ul>
+            <button
+              style={{ backgroundColor: "red", margin: "16px 0" }}
+              onClick={() => item.deleteProduct(index)}
+            >
+              Удалить товар
+            </button>
+            <hr />
           </div>
         ))}
         <button
@@ -364,9 +413,18 @@ const HtxProductsData = inject("store")(
             backgroundColor: "lightgreen",
             width: "100%"
           }}
+          onClick={item.copyProduct}
+        >
+          Копировать товар
+        </button>
+        <button
+          style={{
+            backgroundColor: "lightgreen",
+            width: "100%"
+          }}
           onClick={item.addProduct}
         >
-          Добавить товар
+          Новый товар
         </button>
       </div>
     );
