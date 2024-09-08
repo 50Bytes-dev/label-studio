@@ -16,7 +16,7 @@ const Dialog = ({ text, toggle }) => {
       style={{
         top: 0,
         left: 0,
-        zIndex: 102,
+        zIndex: 1000,
         position: "fixed",
         width: "100vw",
         height: "100vh",
