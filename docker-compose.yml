@@ -42,7 +42,7 @@ services:
       - LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
       - LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home
       - ALLOWED_HOSTS=*
-      - CSRF_TRUSTED_ORIGINS=http://localhost:8888
+      - CSRF_TRUSTED_ORIGINS=http://188.120.237.8:8888,http://localhost:8888
       - JSON_LOG=1
     #      - LOG_LEVEL=DEBUG
     volumes:
