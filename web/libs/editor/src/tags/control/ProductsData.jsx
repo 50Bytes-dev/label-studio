@@ -262,6 +262,7 @@ const HtxProductsData = inject("store")(
                     type={"number"}
                     style={{ marginBottom: "8px", fontWeight: 900 }}
                     value={obj.value}
+                    onWheel={e => e.target.blur()}
                     onChange={e => {
                       product.retail_prices[index].value =
                         e.target.value && Number(e.target.value);
@@ -332,6 +333,7 @@ const HtxProductsData = inject("store")(
                     type={"number"}
                     style={{ marginBottom: "8px", fontWeight: 900 }}
                     value={obj.value}
+                    onWheel={e => e.target.blur()}
                     onChange={e => {
                       product.wholesale_prices[index].value =
                         e.target.value && Number(e.target.value);
@@ -361,6 +363,7 @@ const HtxProductsData = inject("store")(
                           style={{ width: "80px" }}
                           type={"number"}
                           value={opt.count}
+                          onWheel={e => e.target.blur()}
                           onChange={e => {
                             obj.options[index].count =
                               e.target.value && Number(e.target.value);
