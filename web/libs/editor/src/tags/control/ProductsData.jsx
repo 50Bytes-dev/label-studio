@@ -194,38 +194,39 @@ const HtxProductsData = inject("store")(
                     x
                   </button>
                   <div style={{ ...rowStyle, gap: "8px" }}>
-                    {param.values.map((val, index) => (
-                      <div key={index} style={rowStyle}>
-                        {param.name === "категория" ? (
-                          cateoriesSelect(
-                            item.categories,
-                            param.values,
-                            index,
-                            value => {
-                              param.values[index] = value;
-                              item.update();
-                            }
-                          )
-                        ) : (
-                          <textarea
-                            rows={param.name === "описание" ? 4 : 1}
-                            key={index}
-                            value={val}
-                            onChange={e => {
-                              param.values[index] = e.target.value;
-                              item.update();
-                            }}
-                          />
-                        )}
-                        <button
-                          tabIndex={-1}
-                          style={{ backgroundColor: "lightcoral" }}
-                          onClick={e => item.removeValue(param.values, index)}
-                        >
-                          x
-                        </button>
-                      </div>
-                    ))}
+                    {param.values &&
+                      param.values.map((val, index) => (
+                        <div key={index} style={rowStyle}>
+                          {param.name === "категория" ? (
+                            cateoriesSelect(
+                              item.categories,
+                              param.values,
+                              index,
+                              value => {
+                                param.values[index] = value;
+                                item.update();
+                              }
+                            )
+                          ) : (
+                            <textarea
+                              rows={param.name === "описание" ? 4 : 1}
+                              key={index}
+                              value={val}
+                              onChange={e => {
+                                param.values[index] = e.target.value;
+                                item.update();
+                              }}
+                            />
+                          )}
+                          <button
+                            tabIndex={-1}
+                            style={{ backgroundColor: "lightcoral" }}
+                            onClick={e => item.removeValue(param.values, index)}
+                          >
+                            x
+                          </button>
+                        </div>
+                      ))}
                     <button
                       style={{ backgroundColor: "lightgreen" }}
                       onClick={e => item.addValue(param.values)}
