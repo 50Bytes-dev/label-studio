@@ -161,12 +161,12 @@ const HtxProductsData = inject("store")(
   observer(({ item, store }) => {
     return (
       <div style={{ ...colStyle, gap: "30px" }}>
-        {item.products.map((product, index) => (
+        {item.products?.map((product, index) => (
           <div key={index}>
             <Divider style={{ marginBottom: "60px" }} />
             <h4>Параметры:</h4>
             <ul>
-              {product.params.map((param, index) => (
+              {product.params?.map((param, index) => (
                 <li key={index} style={{ marginBottom: "28px" }}>
                   <select
                     style={{
@@ -180,7 +180,7 @@ const HtxProductsData = inject("store")(
                       item.update();
                     }}
                   >
-                    {item.paramOptions.map(opt => (
+                    {item.paramOptions?.map(opt => (
                       <option key={opt} value={opt}>
                         {opt}
                       </option>
@@ -194,39 +194,38 @@ const HtxProductsData = inject("store")(
                     x
                   </button>
                   <div style={{ ...rowStyle, gap: "8px" }}>
-                    {param.values &&
-                      param.values.map((val, index) => (
-                        <div key={index} style={rowStyle}>
-                          {param.name === "категория" ? (
-                            cateoriesSelect(
-                              item.categories,
-                              param.values,
-                              index,
-                              value => {
-                                param.values[index] = value;
-                                item.update();
-                              }
-                            )
-                          ) : (
-                            <textarea
-                              rows={param.name === "описание" ? 4 : 1}
-                              key={index}
-                              value={val}
-                              onChange={e => {
-                                param.values[index] = e.target.value;
-                                item.update();
-                              }}
-                            />
-                          )}
-                          <button
-                            tabIndex={-1}
-                            style={{ backgroundColor: "lightcoral" }}
-                            onClick={e => item.removeValue(param.values, index)}
-                          >
-                            x
-                          </button>
-                        </div>
-                      ))}
+                    {param.values?.map((val, index) => (
+                      <div key={index} style={rowStyle}>
+                        {param.name === "категория" ? (
+                          cateoriesSelect(
+                            item.categories,
+                            param.values,
+                            index,
+                            value => {
+                              param.values[index] = value;
+                              item.update();
+                            }
+                          )
+                        ) : (
+                          <textarea
+                            rows={param.name === "описание" ? 4 : 1}
+                            key={index}
+                            value={val}
+                            onChange={e => {
+                              param.values[index] = e.target.value;
+                              item.update();
+                            }}
+                          />
+                        )}
+                        <button
+                          tabIndex={-1}
+                          style={{ backgroundColor: "lightcoral" }}
+                          onClick={e => item.removeValue(param.values, index)}
+                        >
+                          x
+                        </button>
+                      </div>
+                    ))}
                     <button
                       style={{ backgroundColor: "lightgreen" }}
                       onClick={e => item.addValue(param.values)}
@@ -257,56 +256,57 @@ const HtxProductsData = inject("store")(
             </div>
 
             <ul>
-              {product.retail_prices.map((obj, index) => (
-                <li key={index} style={{ marginBottom: "28px" }}>
-                  <input
-                    type={"number"}
-                    style={{ marginBottom: "8px", fontWeight: 900 }}
-                    value={obj.value}
-                    onWheel={e => e.target.blur()}
-                    onChange={e => {
-                      product.retail_prices[index].value =
-                        e.target.value && Number(e.target.value);
-                      item.update();
-                    }}
-                  />
-                  <button
-                    tabIndex={-1}
-                    style={{ backgroundColor: "lightcoral" }}
-                    onClick={e =>
-                      item.removeValue(product.retail_prices, index)
-                    }
-                  >
-                    x
-                  </button>
-                  <div style={{ ...rowStyle, gap: "8px" }}>
-                    {obj.options.map((opt, index) => (
-                      <div key={index} style={rowStyle}>
-                        <input
-                          value={opt}
-                          onChange={e => {
-                            obj.options[index] = e.target.value;
-                            item.update();
-                          }}
-                        />
-                        <button
-                          tabIndex={-1}
-                          style={{ backgroundColor: "lightcoral" }}
-                          onClick={e => item.removeValue(obj.options, index)}
-                        >
-                          x
-                        </button>
-                      </div>
-                    ))}
+              {product.retail_prices &&
+                product.retail_prices?.map((obj, index) => (
+                  <li key={index} style={{ marginBottom: "28px" }}>
+                    <input
+                      type={"number"}
+                      style={{ marginBottom: "8px", fontWeight: 900 }}
+                      value={obj.value}
+                      onWheel={e => e.target.blur()}
+                      onChange={e => {
+                        product.retail_prices[index].value =
+                          e.target.value && Number(e.target.value);
+                        item.update();
+                      }}
+                    />
                     <button
-                      style={{ backgroundColor: "lightgreen" }}
-                      onClick={e => item.addValue(obj.options)}
+                      tabIndex={-1}
+                      style={{ backgroundColor: "lightcoral" }}
+                      onClick={e =>
+                        item.removeValue(product.retail_prices, index)
+                      }
                     >
-                      +
+                      x
                     </button>
-                  </div>
-                </li>
-              ))}
+                    <div style={{ ...rowStyle, gap: "8px" }}>
+                      {obj.options?.map((opt, index) => (
+                        <div key={index} style={rowStyle}>
+                          <input
+                            value={opt}
+                            onChange={e => {
+                              obj.options[index] = e.target.value;
+                              item.update();
+                            }}
+                          />
+                          <button
+                            tabIndex={-1}
+                            style={{ backgroundColor: "lightcoral" }}
+                            onClick={e => item.removeValue(obj.options, index)}
+                          >
+                            x
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        style={{ backgroundColor: "lightgreen" }}
+                        onClick={e => item.addValue(obj.options)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </li>
+                ))}
               <button
                 style={{ backgroundColor: "lightgreen" }}
                 onClick={e =>
@@ -328,69 +328,70 @@ const HtxProductsData = inject("store")(
             </div>
 
             <ul>
-              {product.wholesale_prices.map((obj, index) => (
-                <li key={index} style={{ marginBottom: "28px" }}>
-                  <input
-                    type={"number"}
-                    style={{ marginBottom: "8px", fontWeight: 900 }}
-                    value={obj.value}
-                    onWheel={e => e.target.blur()}
-                    onChange={e => {
-                      product.wholesale_prices[index].value =
-                        e.target.value && Number(e.target.value);
-                      item.update();
-                    }}
-                  />
-                  <button
-                    tabIndex={-1}
-                    style={{ backgroundColor: "lightcoral" }}
-                    onClick={e =>
-                      item.removeValue(product.wholesale_prices, index)
-                    }
-                  >
-                    x
-                  </button>
-                  <div style={{ ...rowStyle, gap: "8px" }}>
-                    {obj.options.map((opt, index) => (
-                      <div key={index} style={rowStyle}>
-                        <input
-                          value={opt.name}
-                          onChange={e => {
-                            obj.options[index].name = e.target.value;
-                            item.update();
-                          }}
-                        />
-                        <input
-                          style={{ width: "80px" }}
-                          type={"number"}
-                          value={opt.count}
-                          onWheel={e => e.target.blur()}
-                          onChange={e => {
-                            obj.options[index].count =
-                              e.target.value && Number(e.target.value);
-                            item.update();
-                          }}
-                        />
-                        <button
-                          tabIndex={-1}
-                          style={{ backgroundColor: "lightcoral" }}
-                          onClick={e => item.removeValue(obj.options, index)}
-                        >
-                          x
-                        </button>
-                      </div>
-                    ))}
+              {product.wholesale_prices &&
+                product.wholesale_prices?.map((obj, index) => (
+                  <li key={index} style={{ marginBottom: "28px" }}>
+                    <input
+                      type={"number"}
+                      style={{ marginBottom: "8px", fontWeight: 900 }}
+                      value={obj.value}
+                      onWheel={e => e.target.blur()}
+                      onChange={e => {
+                        product.wholesale_prices[index].value =
+                          e.target.value && Number(e.target.value);
+                        item.update();
+                      }}
+                    />
                     <button
-                      style={{ backgroundColor: "lightgreen" }}
+                      tabIndex={-1}
+                      style={{ backgroundColor: "lightcoral" }}
                       onClick={e =>
-                        item.addValue(obj.options, { name: "", count: 1 })
+                        item.removeValue(product.wholesale_prices, index)
                       }
                     >
-                      +
+                      x
                     </button>
-                  </div>
-                </li>
-              ))}
+                    <div style={{ ...rowStyle, gap: "8px" }}>
+                      {obj.options?.map((opt, index) => (
+                        <div key={index} style={rowStyle}>
+                          <input
+                            value={opt.name}
+                            onChange={e => {
+                              obj.options[index].name = e.target.value;
+                              item.update();
+                            }}
+                          />
+                          <input
+                            style={{ width: "80px" }}
+                            type={"number"}
+                            value={opt.count}
+                            onWheel={e => e.target.blur()}
+                            onChange={e => {
+                              obj.options[index].count =
+                                e.target.value && Number(e.target.value);
+                              item.update();
+                            }}
+                          />
+                          <button
+                            tabIndex={-1}
+                            style={{ backgroundColor: "lightcoral" }}
+                            onClick={e => item.removeValue(obj.options, index)}
+                          >
+                            x
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        style={{ backgroundColor: "lightgreen" }}
+                        onClick={e =>
+                          item.addValue(obj.options, { name: "", count: 1 })
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                  </li>
+                ))}
               <button
                 style={{ backgroundColor: "lightgreen" }}
                 onClick={e =>
