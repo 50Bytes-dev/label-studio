@@ -43,8 +43,17 @@ const Model = types
     },
 
     needsUpdate() {
-      if (self.result) self.products = self.result.mainValue;
-      else self.products = [];
+      if (self.result) {
+        const products = self.result.mainValue;
+        products.forEach((product, index) => {
+          if (!product.params) product.params = [];
+          if (!product.retail_prices) product.retail_prices = [];
+          if (!product.wholesale_prices) product.wholesale_prices = [];
+        });
+        self.products = products;
+      } else {
+        self.products = [];
+      }
     },
 
     updateFromResult() {
